@@ -29,21 +29,27 @@ y_coords_100 = df_100[y_axis]/y_coefficient_figure
 x_coords_90 = df_90[x_axis]
 y_coords_90 = df_90[y_axis]/y_coefficient_figure
 
+# ~~~~~~~~~~~~~~~~~~~~~~ GRAPH 1 ~~~~~~~~~~~~~~~~~~~~~~
+
 #plotting the main data
-plt.grid()
+plt.grid(alpha=0.5)
 plt.scatter(x_coords_100, y_coords_100, s=12)
 plt.xlabel(x_axis)
 plt.ylabel(f"{y_axis_label} {y_coefficient_word}")
 plt.ylim(-0.2, 1)
+plt.xlim(1920, 2020)
 plt.title(title, pad=20)
 
 #plotting the ten year mark
 plt.axvline(x = end_100_period - 10, color = 'midnightblue', linestyle = 'dotted')
 
 #polynomial fits
+
 order_vals = []
 chi_squared_vals = []
-for order in range(1, 10):
+
+for order in range(1, 11):
+
     #calculations and plotting
     coefficients = np.polyfit(x_coords_90, y_coords_90, order)
     poly_function = np.poly1d(coefficients)
@@ -56,10 +62,18 @@ for order in range(1, 10):
     order_vals.append(order)
     chi_squared_vals.append(sum_squared_residuals/len(x_coords_90))
 
+    plt.plot(x_coords_100, poly_function(x_coords_100), color='orange', alpha=0.3, lw=1.8)
 
-    plt.plot(x_coords_100, poly_function(x_coords_100), color='black', alpha=0.3, lw=1.8)
+plt.show()
 
-print(order_vals)
-print(chi_squared_vals)
+# ~~~~~~~~~~~~~~~~~~~~~~ GRAPH 2 ~~~~~~~~~~~~~~~~~~~~~~
 
-#plt.show()
+plt.grid(alpha=0.5)
+plt.plot(order_vals, chi_squared_vals)
+plt.xlabel('Polynomial Coefficients')
+plt.ylabel('Chi-Squared')
+plt.title('Number of Polynomial Coefficients vs. Quality of Fit', pad=20)
+
+plt.show()
+
+# ~~~~~~~~~~~~~~~~~~~~~~ GRAPH 3 ~~~~~~~~~~~~~~~~~~~~~~
