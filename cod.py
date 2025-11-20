@@ -43,12 +43,13 @@ plt.title(title, pad=20)
 #plotting the ten year mark
 plt.axvline(x = end_100_period - 10, color = 'midnightblue', linestyle = 'dotted')
 
-#polynomial fits
-
 order_vals = []
 chi_squared_vals = []
+chi_squared_dof_vals = []
+bic_vals = []
 
 for order in range(1, 11):
+    order_vals.append(order)
 
     #calculations and plotting
     coefficients = np.polyfit(x_coords_90, y_coords_90, order)
@@ -59,9 +60,20 @@ for order in range(1, 11):
     sum_squared_residuals = 0
     for residual in residuals:
         sum_squared_residuals += residual ** 2
-    order_vals.append(order)
-    chi_squared_vals.append(sum_squared_residuals/len(x_coords_90))
+    
+    chi_squared = sum_squared_residuals/len(x_coords_90)
+    chi_squared_vals.append(chi_squared)
 
+    #chi squared by degrees of freedom
+    degrees_of_freedom = len(x_coords_90) - (order + 1)
+    chi_squared_dof = chi_squared/degrees_of_freedom
+    chi_squared_dof_vals.append(chi_squared_dof)
+
+    #bic calculations
+    bic = chi_squared_dof + ((order + 1) * np.log(len(x_coords_90)))
+    bic_vals.append(bic)
+
+    #plotting each polynomial
     plt.plot(x_coords_100, poly_function(x_coords_100), color='orange', alpha=0.3, lw=1.8)
 
 plt.show()
@@ -71,13 +83,21 @@ plt.show()
 #plotting chi squared fits for each polynomial
 
 plt.grid(alpha=0.5)
-plt.plot(order_vals, chi_squared_vals)
+plt.plot(order_vals, chi_squared_dof_vals)
 plt.xlabel('Polynomial Coefficients')
-plt.ylabel('Chi-Squared')
-plt.title('Number of Polynomial Coefficients vs. Quality of Fit', pad=20)
+plt.ylabel('Chi-Squared Per Degree of Freedom')
+plt.title('Number of Polynomial Coefficients vs. Quality of Fit (Chi2)', pad=20)
 
 plt.show()
 
 # ~~~~~~~~~~~~~~~~~~~~~~ GRAPH 3 ~~~~~~~~~~~~~~~~~~~~~~
 
 #plotting BIC for each polynomial
+
+plt.grid(alpha=0.5)
+plt.plot(order_vals, bic_vals)
+plt.xlabel('Polynomial Coefficients')
+plt.ylabel('Bayesian Information Criterion')
+plt.title('Number of Polynomial Coefficients vs. Quality of Fit (BIC)', pad=20)
+
+plt.show()
