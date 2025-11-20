@@ -100,3 +100,9 @@ plt.ylabel('Bayesian Information Criterion')
 plt.title('Number of Polynomial Coefficients vs. Quality of Fit (BIC)', pad=20)
 
 plt.show()
+
+# ~~~~~~~~~~~~~~~~~~~~~~ FINDING THE BEST FIT ~~~~~~~~~~
+
+best_bic = bic_vals.index(min(bic_vals)) + 1
+
+coefficients = np.polyfit(x_coords_90, y_coords_90, best_bic)
