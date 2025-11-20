@@ -47,6 +47,7 @@ order_vals = []
 chi_squared_vals = []
 chi_squared_dof_vals = []
 bic_vals = []
+uncertainty = 0.1
 
 for order in range(1, 11):
     order_vals.append(order)
@@ -57,11 +58,9 @@ for order in range(1, 11):
 
     #chi squared calculation
     residuals = poly_function(x_coords_90) - y_coords_90
-    sum_squared_residuals = 0
+    chi_squared = 0
     for residual in residuals:
-        sum_squared_residuals += residual ** 2
-    
-    chi_squared = sum_squared_residuals/len(x_coords_90)
+        chi_squared += (residual ** 2) / (uncertainty ** 2)
     chi_squared_vals.append(chi_squared)
 
     #chi squared by degrees of freedom
@@ -71,6 +70,7 @@ for order in range(1, 11):
 
     #bic calculations
     bic = chi_squared_dof + ((order + 1) * np.log(len(x_coords_90)))
+    print(f'{chi_squared} + {(order + 1)* np.log(len(x_coords_90))}')
     bic_vals.append(bic)
 
     #plotting each polynomial
