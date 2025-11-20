@@ -69,8 +69,7 @@ for order in range(1, 11):
     chi_squared_dof_vals.append(chi_squared_dof)
 
     #bic calculations
-    bic = chi_squared_dof + ((order + 1) * np.log(len(x_coords_90)))
-    print(f'{chi_squared} + {(order + 1)* np.log(len(x_coords_90))}')
+    bic = chi_squared + ((order + 1) * np.log(len(x_coords_90)))
     bic_vals.append(bic)
 
     #plotting each polynomial
