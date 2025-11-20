@@ -68,6 +68,8 @@ plt.show()
 
 # ~~~~~~~~~~~~~~~~~~~~~~ GRAPH 2 ~~~~~~~~~~~~~~~~~~~~~~
 
+#plotting chi squared fits for each polynomial
+
 plt.grid(alpha=0.5)
 plt.plot(order_vals, chi_squared_vals)
 plt.xlabel('Polynomial Coefficients')
@@ -77,3 +79,5 @@ plt.title('Number of Polynomial Coefficients vs. Quality of Fit', pad=20)
 plt.show()
 
 # ~~~~~~~~~~~~~~~~~~~~~~ GRAPH 3 ~~~~~~~~~~~~~~~~~~~~~~
+
+#plotting BIC for each polynomial
