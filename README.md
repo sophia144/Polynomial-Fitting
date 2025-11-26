@@ -9,7 +9,7 @@ Polynomial fits with orders from 1 to 10 are imposed over the top using Polyfit.
 **Graph 2**    
 Uses chi squared to produce a line graph showing how the number of polynomial coefficients affects quality of fit in Graph 1.  
 **Graph 3**     
-Uses the Bayesian Information Coefficient to produce a line graph showing how the number of polynomial coefficients affects quality of fit in Graph 1.  
+Uses the Bayesian Information Coefficient (BIC) to produce a line graph showing how the number of polynomial coefficients affects quality of fit in Graph 1.  
 
 ## Execution
 Can be run using a normal VSCode setup or Python interpreter. 
